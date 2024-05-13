@@ -1,0 +1,33 @@
+{
+  // 按照eslint配置保存自动修复 需要配置安装eslint 的vscode插件
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": "explicit"
+  },
+  // 设置默认的格式化工具 设置null 则表示为使用vscode自带的格式化工具
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  // 保存时vscode根据设置的默认的格式化工具进行格式化操作
+  "editor.formatOnSave": true,
+  /*
+  因为eslint和pretier存在重复格式化为问题
+  通过eslint-plugin-prettier 和 eslint-config-prettier 解决eslint和pretier规则冲突的问题
+  但解决的本质原理是通过将两个格式化工具的规则保持统一来避免冲突 但是还存在格式化两次的问题 只是两次格式化输出内容一致
+  因为ESLint只对javascript、typescript以及javascrpitreact进行代码格式化
+  所以针对共用格式化的语言如JS、TS、JSX、VUE (eslint-plugin-vue让eslint可以识别校验vue文件)关闭文件保存自动格式化功能（不通过prettire格式化），只通过eslint来做这件事
+  除此之外的语言则使用prettier来进行格式化 如 css html 等
+  */
+  "[javascript]": {
+    "editor.formatOnSave": false
+  },
+  "[javascriptreact]": {
+    "editor.formatOnSave": false
+  },
+  "[typescript]": {
+    "editor.formatOnSave": false
+  },
+  "[vue]": {
+    "editor.formatOnSave": false
+  },
+  "html.format.extraLiners": "",
+  "javascript.format.insertSpaceAfterFunctionKeywordForAnonymousFunctions": true,
+  "javascript.format.insertSpaceBeforeFunctionParenthesis": true
+}
