@@ -8,8 +8,11 @@
     "dev": "vite --mode development",
     "build": "vite build",
     "lint:eslint": "eslint ./ --ext .ts,.js,.vue,.tsx,.jsx --max-warnings 0 --fix",
-    "format": "prettier . --write",
-    "prepare": "husky"
+    "lint:prettier": "prettier . --write",
+    "format": "npm run lint:eslint & npm run lint:prettier",
+    "husky:init": "husky",
+    "husky:insert": "echo 'npm run format\ngit add .' > .husky/pre-commit",
+    "prepare": "npm run husky:init && npm run husky:insert"
   },
   "author": "",
   "license": "ISC",
