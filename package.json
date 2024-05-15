@@ -7,7 +7,7 @@
   "scripts": {
     "dev": "vite --mode development",
     "build": "vite build",
-    "lint:eslint": "eslint ./ --ext .ts,.js,.vue,.tsx,.jsx --max-warnings 0 --fix",
+    "lint:eslint": "eslint ./ --ext .ts,.js,.vue,.tsx,.jsx,.cjs,.mjs --max-warnings 0 --fix",
     "lint:prettier": "prettier . --write",
     "lint:staged": "lint-staged",
     "format": "npm run lint:eslint & npm run lint:prettier",
