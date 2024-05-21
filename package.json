@@ -10,10 +10,12 @@
     "lint:eslint": "eslint ./ --ext .ts,.js,.vue,.tsx,.jsx,.cjs,.mjs --max-warnings 0 --fix",
     "lint:prettier": "prettier . --write",
     "lint:staged": "lint-staged",
+    "commitlint": "commitlint --edit",
     "format": "npm run lint:eslint & npm run lint:prettier",
     "husky:init": "husky",
-    "husky:insert": "echo 'npm run lint:staged\ngit add .' > .husky/pre-commit",
-    "prepare": "npm run husky:init && npm run husky:insert"
+    "husky:insertlintStaged": "echo 'npm run lint:staged\ngit add .' > .husky/pre-commit",
+    "husky:insertCommitLint": "echo 'npm run commitlint' > .husky/commit-msg",
+    "prepare": "npm run husky:init && npm run husky:insertlintStaged && npm run husky:insertCommitLint"
   },
   "author": "",
   "license": "ISC",
@@ -26,6 +28,8 @@
     "vue-router": "^4.2.5"
   },
   "devDependencies": {
+    "@commitlint/cli": "^19.3.0",
+    "@commitlint/config-conventional": "^19.2.2",
     "@eslint/create-config": "^0.4.6",
     "@types/node": "^20.9.0",
     "@types/nprogress": "^0.2.3",
