@@ -3,6 +3,9 @@ import type { UserConfig, ConfigEnv } from 'vite'
 import { fileURLToPath } from 'url'
 import vue from '@vitejs/plugin-vue'
 import vueJsx from '@vitejs/plugin-vue-jsx'
+import AutoImport from 'unplugin-auto-import/vite'
+import Components from 'unplugin-vue-components/vite'
+import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
 
 export default defineConfig(({ mode }: ConfigEnv): UserConfig => {
   // 获取当前工作目录
@@ -21,7 +24,13 @@ export default defineConfig(({ mode }: ConfigEnv): UserConfig => {
       // Vue模板文件编译插件
       vue(),
       // jsx文件编译插件
-      vueJsx()
+      vueJsx(),
+      AutoImport({
+        resolvers: [ElementPlusResolver()]
+      }),
+      Components({
+        resolvers: [ElementPlusResolver()]
+      })
     ],
     // 运行后本地预览的服务器
     server: {
