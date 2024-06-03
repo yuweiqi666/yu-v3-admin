@@ -1,3 +1,4 @@
+import path from 'path'
 import { defineConfig, loadEnv } from 'vite'
 import type { UserConfig, ConfigEnv } from 'vite'
 import { fileURLToPath } from 'url'
@@ -6,6 +7,8 @@ import vueJsx from '@vitejs/plugin-vue-jsx'
 import AutoImport from 'unplugin-auto-import/vite'
 import Components from 'unplugin-vue-components/vite'
 import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
+import VueSetupExtend from 'vite-plugin-vue-setup-extend'
+import { createSvgIconsPlugin } from 'vite-plugin-svg-icons'
 
 export default defineConfig(({ mode }: ConfigEnv): UserConfig => {
   // 获取当前工作目录
@@ -23,6 +26,7 @@ export default defineConfig(({ mode }: ConfigEnv): UserConfig => {
     plugins: [
       // Vue模板文件编译插件
       vue(),
+      VueSetupExtend(),
       // jsx文件编译插件
       vueJsx(),
       AutoImport({
@@ -30,6 +34,11 @@ export default defineConfig(({ mode }: ConfigEnv): UserConfig => {
       }),
       Components({
         resolvers: [ElementPlusResolver()]
+      }),
+      // 自定义svg icon插件
+      createSvgIconsPlugin({
+        iconDirs: [path.resolve(process.cwd(), 'src/assets/icons')],
+        symbolId: 'icon-[dir]-[name]'
       })
     ],
     // 运行后本地预览的服务器
