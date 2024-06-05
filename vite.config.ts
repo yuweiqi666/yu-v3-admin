@@ -9,6 +9,7 @@ import Components from 'unplugin-vue-components/vite'
 import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
 import VueSetupExtend from 'vite-plugin-vue-setup-extend'
 import { createSvgIconsPlugin } from 'vite-plugin-svg-icons'
+import { viteMockServe } from 'vite-plugin-mock'
 
 export default defineConfig(({ mode }: ConfigEnv): UserConfig => {
   // 获取当前工作目录
@@ -39,6 +40,11 @@ export default defineConfig(({ mode }: ConfigEnv): UserConfig => {
       createSvgIconsPlugin({
         iconDirs: [path.resolve(process.cwd(), 'src/assets/icons')],
         symbolId: 'icon-[dir]-[name]'
+      }),
+      // mock数据
+      viteMockServe({
+        mockPath: 'mock',
+        enable: true
       })
     ],
     // 运行后本地预览的服务器

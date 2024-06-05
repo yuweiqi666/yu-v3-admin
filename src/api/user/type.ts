@@ -8,14 +8,15 @@ export interface LoginRequestInter {
   password: string
 }
 
-interface ResponseDataInter {
-  token?: string
-  message?: string
-}
+// interface ResponseDataInter {
+//   token?: string
+//   message?: string
+// }
 
 export interface LoginResponseInter {
-  code: number
-  data: ResponseDataInter
+  // code: number
+  // data: ResponseDataInter
+  token: string
 }
 
 export interface CheckUserInter {

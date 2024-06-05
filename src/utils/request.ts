@@ -51,8 +51,8 @@ service.interceptors.response.use(
 
 const requestInstance = <T = any>(config: AxiosRequestConfig): Promise<T> => {
   const conf = config
-  return service.request<any, AxiosResponse<BaseResponse<T>>>(conf).then((res: AxiosResponse<BaseResponse<T>>) => {
-    const data = res.data
+  return service.request<any, BaseResponse<T>>(conf).then((data: BaseResponse<T>) => {
+    console.log('data', data)
     if (data.code != 0) {
       ElMessage({
         type: 'error',
@@ -66,17 +66,17 @@ const requestInstance = <T = any>(config: AxiosRequestConfig): Promise<T> => {
 }
 
 export function get<T = any, U = any>(config: AxiosRequestConfig, url: string, params?: U): Promise<T> {
-  return requestInstance({ ...config, url, method: 'get', params })
+  return requestInstance<T>({ ...config, url, method: 'get', params })
 }
 
 export function post<T = any, U = any>(config: AxiosRequestConfig, url: string, data?: U): Promise<T> {
-  return requestInstance({ ...config, url, method: 'post', data })
+  return requestInstance<T>({ ...config, url, method: 'post', data })
 }
 
 export function put<T = any, U = any>(config: AxiosRequestConfig, url: string, params?: U): Promise<T> {
-  return requestInstance({ ...config, url, method: 'put', params })
+  return requestInstance<T>({ ...config, url, method: 'put', params })
 }
 
 export function del<T = any, U = any>(config: AxiosRequestConfig, url: string, data?: U): Promise<T> {
-  return requestInstance({ ...config, url, method: 'delete', data })
+  return requestInstance<T>({ ...config, url, method: 'delete', data })
 }

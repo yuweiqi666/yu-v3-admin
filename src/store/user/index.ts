@@ -9,9 +9,9 @@ const useUserStore = defineStore('User', () => {
   const getLoginHandler = async (userData: LoginRequestInter) => {
     const result = await loginApi(userData)
     // 登陆成功
-    userToken.value = result.data.token as string
+    userToken.value = result.token as string
     // 将token存入本地缓存
-    setItemLocal('userToken', result.data.token as string)
+    setItemLocal('userToken', result.token as string)
 
     return 'login success'
   }
