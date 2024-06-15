@@ -8,18 +8,11 @@ export interface LoginRequestInter {
   password: string
 }
 
-// interface ResponseDataInter {
-//   token?: string
-//   message?: string
-// }
-
 export interface LoginResponseInter {
-  // code: number
-  // data: ResponseDataInter
   token: string
 }
 
-export interface CheckUserInter {
+export interface GetUserInfoResponseInter {
   userId: number
   avatar: string
   username: string
@@ -29,14 +22,4 @@ export interface CheckUserInter {
   buttons: string[]
   routes: string[]
   token: string
-}
-
-interface UserInfoInter {
-  checkUser?: CheckUserInter
-  message?: string
-}
-
-export interface GetUserInfoResponseInter {
-  code: number
-  data: UserInfoInter
 }

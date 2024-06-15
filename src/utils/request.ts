@@ -1,6 +1,6 @@
 import axios, { AxiosError, AxiosInstance, AxiosRequestConfig, AxiosResponse, InternalAxiosRequestConfig } from 'axios'
 import { getMessageInfo } from './status'
-
+import useUserStore from '@/store/user'
 interface BaseResponse<T = any> {
   code: number | string
   message: string
@@ -14,6 +14,11 @@ const service: AxiosInstance = axios.create({
 
 service.interceptors.request.use(
   (config: InternalAxiosRequestConfig) => {
+    // 非登陆接口 请求头都要带上用户token
+    const userStore = useUserStore()
+    if (config.url !== '/user/login') {
+      config.headers.token = userStore.userToken
+    }
     return config
   },
   (err: AxiosError) => {

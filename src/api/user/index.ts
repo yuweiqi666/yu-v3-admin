@@ -6,5 +6,5 @@ export const loginApi = (data: LoginRequestInter) => {
 }
 
 export const getUserInfoApi = () => {
-  return post<GetUserInfoResponseInter, LoginRequestInter>({}, Api.USERINFO_URL)
+  return post<GetUserInfoResponseInter>({}, Api.USERINFO_URL)
 }

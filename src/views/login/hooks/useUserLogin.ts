@@ -16,14 +16,15 @@ export const useUserLogin = () => {
         username: userForm.username,
         password: userForm.password
       })
-      loading.value = false
+      await userStore.getUserInfoHandler()
       const nowTime = getCurrentTime()
+      const username = userStore.userInfo?.username
       ElNotification({
         message: '欢迎回来',
-        title: `Hi，${nowTime}好`,
+        title: `Hi，${username + nowTime}好`,
         type: 'success'
       })
-      await userStore.getUserInfoHandler()
+      loading.value = false
     } catch (error) {
       loading.value = false
       return Promise.reject('')

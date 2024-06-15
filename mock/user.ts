@@ -19,5 +19,35 @@ export default [
         }
       }
     }
+  },
+  {
+    url: '/api/user/info',
+    method: 'post',
+    response: (res) => {
+      const { token } = res.headers
+      if (token === 'vben') {
+        return {
+          code: 0,
+          message: '获取用户信息成功',
+          data: {
+            userId: 1,
+            avatar: '111',
+            username: '张三',
+            password: '111111',
+            desc: '张三的描述',
+            roles: [],
+            buttons: [],
+            routes: [],
+            token: 'vben'
+          }
+        }
+      } else {
+        return {
+          code: 200,
+          message: '获取用户失败！',
+          data: null
+        }
+      }
+    }
   }
 ]

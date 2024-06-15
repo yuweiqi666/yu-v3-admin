@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia'
 import { ref } from 'vue'
 import { loginApi, getUserInfoApi } from '@/api/user/index'
-import { LoginRequestInter, CheckUserInter } from '@/api/user/type'
+import { LoginRequestInter, GetUserInfoResponseInter } from '@/api/user/type'
 import { setItemLocal, getItemLocal, removeItemLocal } from '@/utils/storage'
 const useUserStore = defineStore('User', () => {
   // 登陆逻辑
@@ -25,26 +25,22 @@ const useUserStore = defineStore('User', () => {
   }
 
   // 获取用户信息逻辑
-  const userInfo = ref<CheckUserInter | null>((getItemLocal('userInfo') as CheckUserInter) || null)
+  const userInfo = ref<GetUserInfoResponseInter | null>((getItemLocal('userInfo') as GetUserInfoResponseInter) || null)
   const getUserInfoHandler = async () => {
-    const { code, data } = await getUserInfoApi()
-    if (code === 200) {
-      userInfo.value = data.checkUser as CheckUserInter
-      setItemLocal('userInfo', {
-        userId: userInfo.value.userId,
-        avatar: userInfo.value.avatar,
-        username: userInfo.value.username,
-        password: userInfo.value.password,
-        desc: userInfo.value.desc,
-        roles: userInfo.value.roles,
-        buttons: userInfo.value.buttons,
-        routes: userInfo.value.routes,
-        token: userInfo.value.token
-      })
-      return 'getUserInfo success'
-    } else {
-      return Promise.reject(new Error(data.message))
-    }
+    const checkUser = await getUserInfoApi()
+    userInfo.value = checkUser as GetUserInfoResponseInter
+    setItemLocal('userInfo', {
+      userId: userInfo.value.userId,
+      avatar: userInfo.value.avatar,
+      username: userInfo.value.username,
+      password: userInfo.value.password,
+      desc: userInfo.value.desc,
+      roles: userInfo.value.roles,
+      buttons: userInfo.value.buttons,
+      routes: userInfo.value.routes,
+      token: userInfo.value.token
+    })
+    return 'getUserInfo success'
   }
 
   return {
